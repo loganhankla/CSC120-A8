@@ -31,20 +31,19 @@ public class Robot// implements Contract
         } else{
             throw new RuntimeException(item + " is not in " + this.name + "'s inventory.");
         }
-        //remove from arraylist
     }
 
-    //void examine(String item){
-        // print string
-        //use energy
-    //}
+    void examine(String item){
+        this.energyLevel -= 10;
+        System.out.println(this.name + " is examining " + item +". To put " + item + " in the inventory, tell " + this.name + " to grab() it. " + this.name + "'s energy level is " + this.energyLevel + "/100.");
+    }
 
    // void use(String item){
         // remove from arraylist
         // use energy
     //}
 
-    boolean walk(String direction){ // use a string for direction?
+    boolean walk(String direction){
         if(this.energyLevel >= 10){
             this.energyLevel -= 10;
             System.out.println(this.name + " is walking " + direction + ".");
@@ -64,7 +63,6 @@ public class Robot// implements Contract
         } else{
             return false;
         }
-        /// return some boolean
     }
 
     Number shrink(){
@@ -86,7 +84,7 @@ public class Robot// implements Contract
     void rest(){
         if(this.energyLevel <= 90){
             this.energyLevel += 10;
-            System.out.println(this.name + "'s energy level is " + this.energyLevel + "/100.");
+            System.out.println(this.name + "'s energy level after resting is " + this.energyLevel + "/100.");
         } else{
             throw new RuntimeException(this.name + " already has full energy.");
         }
@@ -101,14 +99,15 @@ public class Robot// implements Contract
         robbie.grow();
         robbie.shrink();
         robbie.fly(2, 3);
-        robbie.rest();
         robbie.walk("north");
         //robbie.undo();
         robbie.grab("Phone");
         //robbie.drop("Laptop");
        // robbie.drop("Phone");
-        //robbie.examine(XX);
+        robbie.examine("T-shirt");
         //robbie.use(XX);
         System.out.println("Robbie's inventory: " + robbie.inventory);
+        robbie.rest();
+        
     }
 }
