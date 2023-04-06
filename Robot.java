@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public class Robot// implements Contract
 {
     private String name; 
@@ -5,6 +7,7 @@ public class Robot// implements Contract
     private int energyLevel;
     private int xPosition;
     private int yPosition;
+    private ArrayList<String> inventory;
 
     //Constructor
     public Robot(String name){
@@ -14,15 +17,22 @@ public class Robot// implements Contract
         this.energyLevel = 100;
         this.xPosition = 0;
         this.yPosition = 0;
+        this.inventory = new ArrayList<String>();
     }
     
-    //void grab(String item){
-        //add to array list
-   // }
+    void grab(String item){
+        this.inventory.add(item);
+    }
 
-    //String drop(String item){
+    String drop(String item){
+        if(this.inventory.contains(item)){
+            this.inventory.remove(item);
+            return item + "removed from" + this.name + "'s inventory.";
+        } else{
+            throw new RuntimeException(item + " is not in " + this.name + "'s inventory.");
+        }
         //remove from arraylist
-    //}
+    }
 
     //void examine(String item){
         // print string
@@ -37,6 +47,7 @@ public class Robot// implements Contract
     boolean walk(String direction){ // use a string for direction?
         if(this.energyLevel >= 10){
             this.energyLevel -= 10;
+            System.out.println(this.name + " is walking " + direction + ".");
             return true;
         } else{
             return false;
@@ -48,12 +59,11 @@ public class Robot// implements Contract
             this.xPosition += x;
             this.yPosition += y;
             this.energyLevel -= 10;
-            System.out.println("Your x position is: " + this.xPosition + ", and your y position is: " + this.yPosition);
+            System.out.println("Your X Position is " + this.xPosition + ", and your Y Position is " + this.yPosition);
             return true;
         } else{
             return false;
         }
-      //  this.energyLevel -= 10;
         /// return some boolean
     }
 
@@ -76,6 +86,7 @@ public class Robot// implements Contract
     void rest(){
         if(this.energyLevel <= 90){
             this.energyLevel += 10;
+            System.out.println(this.name + "'s energy level is " + this.energyLevel + "/100.");
         } else{
             throw new RuntimeException(this.name + " already has full energy.");
         }
@@ -91,6 +102,13 @@ public class Robot// implements Contract
         robbie.shrink();
         robbie.fly(2, 3);
         robbie.rest();
-        //robbie.walk("input");
+        robbie.walk("north");
+        //robbie.undo();
+        robbie.grab("Phone");
+        //robbie.drop("Laptop");
+       // robbie.drop("Phone");
+        //robbie.examine(XX);
+        //robbie.use(XX);
+        System.out.println("Robbie's inventory: " + robbie.inventory);
     }
 }
