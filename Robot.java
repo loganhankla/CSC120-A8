@@ -1,7 +1,6 @@
 import java.util.ArrayList;
 
-public class Robot// implements Contract
-{
+public class Robot implements Contract{
     private String name; 
     private int size;
     private int energyLevel;
@@ -20,11 +19,11 @@ public class Robot// implements Contract
         this.inventory = new ArrayList<String>();
     }
     
-    void grab(String item){
+    public void grab(String item){
         this.inventory.add(item);
     }
 
-    String drop(String item){
+    public String drop(String item){
         if(this.inventory.contains(item)){
             this.inventory.remove(item);
             return item + "removed from" + this.name + "'s inventory.";
@@ -33,22 +32,22 @@ public class Robot// implements Contract
         }
     }
 
-    void examine(String item){
+    public void examine(String item){
         this.energyLevel -= 10;
         System.out.println(this.name + " is examining " + item +". To put " + item + " in the inventory, tell " + this.name + " to grab() it. " + this.name + "'s energy level is " + this.energyLevel + "/100.");
     }
 
-    void use(String item){
+    public void use(String item){
         if(this.inventory.contains(item)){
             this.inventory.remove(item);
             this.energyLevel -= 10;
             System.out.println(this.name + " has used " + item + ". " + this.name + "'s energy level is " + this.energyLevel + "/100.");
         } else{
-            throw new RuntimeException("This item is not in the inventory. To use it, please grab() it first.");
-        } // could say which item instead of vague
+            throw new RuntimeException(item + " is not in the inventory. To use it, please grab() it first.");
+        }
     }
 
-    boolean walk(String direction){
+    public boolean walk(String direction){
         if(this.energyLevel >= 10){
             this.energyLevel -= 10;
             System.out.println(this.name + " is walking " + direction + ".");
@@ -58,7 +57,7 @@ public class Robot// implements Contract
         }
     }
 
-    boolean fly(int x, int y){
+    public boolean fly(int x, int y){
         if(x + this.xPosition <= 100 && y + this.yPosition <=100 ){
             this.xPosition += x;
             this.yPosition += y;
@@ -70,7 +69,7 @@ public class Robot// implements Contract
         }
     }
 
-    Number shrink(){
+    public Number shrink(){
         if(this.size >=2){
             this.size -= 1;
             System.out.println(this.name + " is now " + this.size + " feet tall.");
@@ -80,13 +79,13 @@ public class Robot// implements Contract
         return this.size;
     }
 
-    Number grow(){
+    public Number grow(){
         this.size += 1;
         System.out.println(this.name + " is now " + this.size + " feet tall.");
         return this.size;
     }
 
-    void rest(){
+    public void rest(){
         if(this.energyLevel <= 90){
             this.energyLevel += 10;
             System.out.println(this.name + "'s energy level after resting is " + this.energyLevel + "/100.");
@@ -95,9 +94,9 @@ public class Robot// implements Contract
         }
     }
 
-    //void undo(){
+    public void undo(){
 
-    //}
+    }
 
     public static void main(String[] args) {
         Robot robbie = new Robot("Robbie");
@@ -110,9 +109,11 @@ public class Robot// implements Contract
         //robbie.drop("Laptop");
        // robbie.drop("Phone");
         robbie.examine("T-shirt");
-        robbie.use("Laptop");
+        robbie.use("Phone");
         System.out.println("Robbie's inventory: " + robbie.inventory);
         robbie.rest();
-        
+        robbie.rest();
+        robbie.rest();
+        robbie.rest();
     }
 }
