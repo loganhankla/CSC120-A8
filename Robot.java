@@ -105,7 +105,32 @@ public class Robot implements Contract{
     }
 
     public void undo(){
+        System.out.println("You can undo the following actions: \n * rest() \n * grow() \n * shrink() \n * grab() \n * drop() \n * use() \n To do so, please use undo() with the method name as the first parameter. If the method takes input, please include it as the second parameter. For example: undo(\"grab\") OR undo(\"grab\", \"item\")");
+    }
 
+    public void undo(String undoMethod){
+        if(undoMethod == "rest"){
+            this.energyLevel -= 10;
+        } else if(undoMethod == "grow"){
+            this.shrink();
+        } else if(undoMethod.contains("shrink")){
+            this.grow();
+        } else{
+            throw new RuntimeException("This action cannot be undone. Use undo() to check which actions may be undone. Also, check that you've included any parameters.");
+        }
+    }
+
+    public void undo(String undoMethod, String methodParam){
+        if(undoMethod == "use"){
+            this.rest();
+            this.grab(methodParam);
+        } else if(undoMethod == "drop"){
+            this.grab(methodParam);
+        } else if(undoMethod == "grab"){
+            this.drop(methodParam);
+        } else{
+            throw new RuntimeException("This action cannot be undone.");
+        }
     }
 
     public static void main(String[] args) {
@@ -125,5 +150,11 @@ public class Robot implements Contract{
         robbie.rest();
         robbie.rest();
         robbie.rest();
+        robbie.grab("Cat");
+        robbie.use("Cat");
+        robbie.undo();
+        robbie.undo("use", "Cat");
+        robbie.grow();
+        robbie.undo("grow");
     }
 }
