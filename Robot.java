@@ -38,10 +38,15 @@ public class Robot// implements Contract
         System.out.println(this.name + " is examining " + item +". To put " + item + " in the inventory, tell " + this.name + " to grab() it. " + this.name + "'s energy level is " + this.energyLevel + "/100.");
     }
 
-   // void use(String item){
-        // remove from arraylist
-        // use energy
-    //}
+    void use(String item){
+        if(this.inventory.contains(item)){
+            this.inventory.remove(item);
+            this.energyLevel -= 10;
+            System.out.println(this.name + " has used " + item + ". " + this.name + "'s energy level is " + this.energyLevel + "/100.");
+        } else{
+            throw new RuntimeException("This item is not in the inventory. To use it, please grab() it first.");
+        } // could say which item instead of vague
+    }
 
     boolean walk(String direction){
         if(this.energyLevel >= 10){
@@ -58,7 +63,7 @@ public class Robot// implements Contract
             this.xPosition += x;
             this.yPosition += y;
             this.energyLevel -= 10;
-            System.out.println("Your X Position is " + this.xPosition + ", and your Y Position is " + this.yPosition);
+            System.out.println("Your X Position is " + this.xPosition + ", and your Y Position is " + this.yPosition + ".");
             return true;
         } else{
             return false;
@@ -105,7 +110,7 @@ public class Robot// implements Contract
         //robbie.drop("Laptop");
        // robbie.drop("Phone");
         robbie.examine("T-shirt");
-        //robbie.use(XX);
+        robbie.use("Laptop");
         System.out.println("Robbie's inventory: " + robbie.inventory);
         robbie.rest();
         
