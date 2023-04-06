@@ -1,9 +1,18 @@
+/** 
+ * Creates a robot and provides several methods.
+ * @author Logan Hankla
+ */
+
 import java.util.ArrayList;
 
 public class Robot implements Contract{
+    /** Name of the robot */
     private String name; 
+    /** Robot size */
     private int size;
+    /** Robot's energy level out of 100 */
     private int energyLevel;
+    /** Robot's X Position */
     private int xPosition;
     private int yPosition;
     private ArrayList<String> inventory;
@@ -11,7 +20,7 @@ public class Robot implements Contract{
     //Constructor
     public Robot(String name){
         this.name = name;
-        System.out.println("Your robot's name is: " + name);
+        System.out.println("Your robot's name is " + name + ". Please note that " + name + " must adhere to the Three Laws of Robotics: \n 1. A robot may not injure a human being or, through inaction, allow a human being to come to harm. \n 2. A robot must obey orders given it by human beings except where such orders would conflict with the First Law. \n 3. A robot must protect its own existence as long as such protection does not conflict with the First or Second Law.");
         this.size = 6;
         this.energyLevel = 100;
         this.xPosition = 0;
@@ -50,7 +59,8 @@ public class Robot implements Contract{
     public boolean walk(String direction){
         if(this.energyLevel >= 10){
             this.energyLevel -= 10;
-            System.out.println(this.name + " is walking " + direction + ".");
+            this.xPosition += 5;
+            System.out.println(this.name + " walked " + direction + ", and " + this.name + "'s new X position is " + this.xPosition + ".");
             return true;
         } else{
             return false;
@@ -62,7 +72,7 @@ public class Robot implements Contract{
             this.xPosition += x;
             this.yPosition += y;
             this.energyLevel -= 10;
-            System.out.println("Your X Position is " + this.xPosition + ", and your Y Position is " + this.yPosition + ".");
+            System.out.println(this.name + "'s X Position is " + this.xPosition + ", and " + this.name + "'s Y Position is " + this.yPosition + ".");
             return true;
         } else{
             return false;
