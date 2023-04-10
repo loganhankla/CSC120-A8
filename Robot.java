@@ -1,6 +1,7 @@
 /** 
  * Creates a robot and provides several methods.
- * @author Claire Logan Hankla
+ * @author Logan Hankla
+ * 10 April 2023
  */
 
 import java.util.ArrayList;
